@@ -24,16 +24,18 @@ connectDB()
 const server = express()
 
 // Permitir conexiones
-const corsOptions : CorsOptions = {
+const corsOptions: CorsOptions = {
     origin: function(origin, callback) {
-        if(origin === process.env.FRONTEND_URL) {
-            callback(null, true)
+        if (origin === process.env.FRONTEND_URL) {
+            callback(null, true);
         } else {
-            callback(new Error('Error de CORS')) 
+            const error = new Error(`La solicitud desde ${origin} tiene un origen no permitido por CORS.`);
+            console.error(error); // Imprimir el error en consola
+            callback(error);
         }
     }
-}
-server.use(cors(corsOptions))
+};
+server.use(cors(corsOptions));
 
 
 
