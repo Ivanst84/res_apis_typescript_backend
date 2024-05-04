@@ -22,23 +22,21 @@ export async function connectDB() {
 connectDB();
 
 const server = express();
+
 // Permitir conexiones
 console.log("Valor de process.env.FRONTEND_URL:", process.env.FRONTEND_URL);
 
-const corsOptions : CorsOptions = {
-
-  origin:function(origin,callback){
-	  console.log("el dato es :",origin)
- if(origin ===process.env.FRONTEND_URL ){
-
-callback(null,true)}
-	else{
-callback(new Error('No permitido por CORS checa los corse'))
+const corsOptions: CorsOptions = {
+  origin: function(origin, callback) {
+    if (!origin || origin === process.env.FRONTEND_URL) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS, verifica la configuración CORS'));
+    }
+  }
 }
 
-}
-}
-server.use(cors(corsOptions))
+server.use(cors(corsOptions));
 
 
 server.use(express.json());
