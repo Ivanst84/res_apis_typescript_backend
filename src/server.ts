@@ -25,18 +25,22 @@ const server = express();
 
 // Permitir conexiones
 console.log("Valor de process.env.FRONTEND_URL:", process.env.FRONTEND_URL);
-
 const corsOptions: CorsOptions = {
   origin: function(origin, callback) {
+    console.log('Valor de origin:', origin); // Imprime el valor de origin
+    console.log('Valor de process.env.FRONTEND_URL:', process.env.FRONTEND_URL); // Imprime el valor de process.env.FRONTEND_URL
+    
     if (!origin || origin === process.env.FRONTEND_URL) {
       callback(null, true);
     } else {
+      console.error('Error de CORS:', new Error('No permitido por CORS, verifica la configuración CORS'));
       callback(new Error('No permitido por CORS, verifica la configuración CORS'));
     }
   }
 }
 
 server.use(cors(corsOptions));
+
 
 
 server.use(express.json());
