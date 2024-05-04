@@ -31,7 +31,7 @@ const corsOptions : CorsOptions = {
 
 callback(null,true)}
 	else{
-callback(new Error('No permitido por CORS'))
+callback(new Error('No permitido por CORS checa los corse'))
 }
 
 }
