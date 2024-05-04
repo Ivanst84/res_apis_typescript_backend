@@ -24,16 +24,29 @@ connectDB()
 const server = express()
 
 // Permitir conexiones
-const corsOptions : CorsOptions = {
+// Permitir conexiones
+const allowedOrigin = "https://rest-api-typescript-frontend-rho.vercel.app";
+
+const corsOptions: CorsOptions = {
     origin: function(origin, callback) {
-        if(origin === process.env.FRONTEND_URL) {
-            callback(null, true)
-        } else {
-            callback(new Error('Error de CORS')) 
+        try {
+            if (!origin) {
+                origin = "unknown"; // Establecer un valor predeterminado para el origen
+            }
+            if (origin === allowedOrigin) {
+                callback(null, true);
+            } else {
+                const error = new Error(`La solicitud desde ${origin} tiene un origen no permitido por CORS.`);
+                console.error(error); // Imprimir el error en consola
+                callback(error);
+            }
+        } catch (err) {
+            console.log("Error en la función de origen:", err); // Registro de error en el catch
+            callback(err);
         }
     }
-}
-server.use(cors(corsOptions))
+};
+server.use(cors(corsOptions));
 
 
 // Leer datos de formularios
