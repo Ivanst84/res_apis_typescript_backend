@@ -23,12 +23,10 @@ connectDB()
 // Instancia de express
 const server = express()
 
-// Permitir conexiones
-const allowedOrigin = "https://rest-api-typescript-frontend-rho.vercel.app";
-
 const corsOptions: CorsOptions = {
     origin: function(origin, callback) {
         try {
+            console.log("Valor de origin:", origin); // Agregar registro para imprimir el valor de origin
             if (!origin) {
                 origin = "unknown"; // Establecer un valor predeterminado para el origen
             }
