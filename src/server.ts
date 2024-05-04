@@ -23,9 +23,9 @@ connectDB();
 
 const server = express();
 // Permitir conexiones
+console.log("Valor de process.env.FRONTEND_URL:", process.env.FRONTEND_URL);
 
 const corsOptions : CorsOptions = {
-console.log("Valor de process.env.FRONTEND_URL:", process.env.FRONTEND_URL);
 
   origin:function(origin,callback){
 	  console.log("el dato es :"origin)
