@@ -22,6 +22,8 @@ connectDB()
 
 // Instancia de express
 const server = express()
+
+
 const allowedOrigin = "https://rest-api-typescript-frontend-rho.vercel.app";
 
 const corsOptions: CorsOptions = {
@@ -31,7 +33,8 @@ const corsOptions: CorsOptions = {
             if (!origin) {
                 origin = "unknown"; // Establecer un valor predeterminado para el origen
             }
-            if (origin === allowedOrigin) {
+            // Ajustar la comparación del origen para ser más flexible
+            if (origin && (origin === allowedOrigin || origin === `${allowedOrigin}/` || origin === `${allowedOrigin}:443`)) {
                 callback(null, true);
             } else {
                 const error: Error = new Error(`La solicitud desde ${origin} tiene un origen no permitido por CORS.`);
